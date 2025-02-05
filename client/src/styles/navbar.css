@@ -1,0 +1,14 @@
+/* Navbar Styles */
+.navbar {
+    background-color: #2980b9;
+    color: #fff;
+    padding: 0.625em 1.25em;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.navbar h1 {
+    font-size: 2rem;
+    margin: 0;
+    font-weight: 600;
+}

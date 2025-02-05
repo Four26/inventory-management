@@ -1,0 +1,37 @@
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.categories-div {
+    padding: 20px;
+    border-radius: 4px;
+    text-transform: capitalize;
+    color: #333;
+}
+
+.categories-div:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.categories-div h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.categories-div p {
+    font-size: 1rem;
+    margin-top: 5px;
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    .categories {
+        grid-template-columns: 1fr;
+    }
+}

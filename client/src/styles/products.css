@@ -1,0 +1,207 @@
+.products {
+    height: 100%;
+}
+
+.add-product-div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.add-product-div input {
+    padding: 10px;
+    outline: none;
+    border-radius: 4px;
+}
+
+.add-product-div button {
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    background: #2563eb;
+    border-radius: 4px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.add-product-div button:hover {
+    background: #183a91;
+}
+
+.products-list-div {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.product-con {
+    padding: 16px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1),
+        0px 4px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    max-height: 200px;
+    max-width: 300px;
+}
+
+.product-con:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.12),
+        0px 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-con h2 {
+    text-align: center;
+    font-weight: 600;
+    color: #333;
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.product-con p {
+    color: #555;
+    margin-bottom: 4px;
+    font-size: 1rem;
+}
+
+.product-con p:last-child {
+    font-weight: 500;
+    color: #2973B2;
+}
+
+.Appliances {
+    background-color: #e1f0ff;
+    border-left: 6px solid #70A1D7;
+}
+
+.Clothing {
+    background-color: #e7fae3;
+    border-left: 6px solid #A1DE93;
+}
+
+.Food {
+    background-color: #f6f5e6;
+    border-left: 6px solid #F7F48B;
+}
+
+.Medicine {
+    background-color: #fff5f5;
+    border-left: 6px solid #F47C7C;
+}
+
+.empty-products {
+    padding: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-products>img {
+    width: 50px;
+}
+
+.empty-products h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: grey;
+}
+
+.empty-products p {
+    margin: 0;
+    color: grey;
+    font-size: 1.2rem;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.modal-content form div {
+    margin-bottom: 1rem;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-actions button {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-actions button[type="submit"] {
+    background-color: #2973B2;
+    color: white;
+    border: none;
+}
+
+.modal-actions button[type="button"] {
+    background-color: #f1f1f1;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.delete-button {
+    background-color: #DE7C7D;
+    color: white;
+    padding: 0.3125em 1.25em;
+    font-size: 1em;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #d33c3f;
+}
+
+.delete-button:focus {
+    outline: none;
+}

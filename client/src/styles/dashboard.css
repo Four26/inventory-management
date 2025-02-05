@@ -1,0 +1,118 @@
+/* DASHBOARD LAYOUT */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* COMMON CARD STYLES */
+.total-products-div,
+.category-div,
+.total-products-value-div,
+.low-stock-div {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.total-products-div:hover,
+.category-div:hover,
+.total-products-value-div:hover,
+.low-stock-div:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* HEADINGS */
+.total-products-div h2,
+.category-div h2,
+.total-products-value-div h2,
+.low-stock-div h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* TEXT STYLES */
+.total-products-div p,
+.category-div p,
+.total-products-value-div p {
+    font-size: 1.1rem;
+    text-align: center;
+    font-weight: bold;
+    color: #444;
+}
+
+/* TOTAL PRODUCTS SECTION */
+.total-products-div {
+    background-color: #e1f0ff;
+    border-left: 6px solid #70A1D7;
+}
+
+/* CATEGORY SECTION */
+.category-div {
+    background-color: #e7fae3;
+    border-left: 6px solid #A1DE93;
+}
+
+/* TOTAL PRODUCTS VALUE SECTION */
+.total-products-value-div {
+    background-color: #f6f5e6;
+    border-left: 6px solid #F7F48B;
+}
+
+/* LOW STOCK SECTION */
+.low-stock-div {
+    background-color: #fff5f5;
+    border-left: 6px solid #F47C7C;
+}
+
+.low-stock-div h2 {
+    color: #d60000;
+}
+
+.low-stock-div p {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #b30000;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+/* LOW STOCK LIST */
+.low-stock-div ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.low-stock-div li {
+    background-color: #fff;
+    padding: 10px;
+    margin: 6px 0;
+    border-radius: 5px;
+    box-shadow: rgba(9, 30, 66, 0.1) 0px 1px 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.low-stock-div li:nth-child(even) {
+    background-color: #ffcccc;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+}
