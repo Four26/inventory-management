@@ -15,14 +15,14 @@ const Products = () => {
 
     useEffect(() => {
         if (query.trim() === '') {
-            fetch('http://localhost:3000/product')
+            fetch('https://inventory-management-server-hv7u.onrender.com/product')
                 .then((response) => response.json())
                 .then((data) => setProducts(data.products))
                 .catch((err) => console.error(`Error fetching products:`, err.message));
             return;
         }
 
-        fetch(`http://localhost:3000/product/search?query=${query}`)
+        fetch(`https://inventory-management-server-hv7u.onrender.com/product/search?query=${query}`)
             .then((response) => response.json())
             .then((data) => {
                 console.log("Searched Products:", data);
@@ -60,7 +60,7 @@ const Products = () => {
         console.log('Adding new product:', newProduct);
 
         // Send data to the backend
-        fetch('http://localhost:3000/product', {
+        fetch('https://inventory-management-server-hv7u.onrender.com/product', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ const Products = () => {
 
         if (window.confirm(alertMessage)) {
 
-            fetch(`http://localhost:3000/product/${id}`, {
+            fetch(`https://inventory-management-server-hv7u.onrender.com/product/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
