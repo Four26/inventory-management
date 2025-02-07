@@ -9,7 +9,7 @@ const Dashboard = () => {
 
 
     useEffect(() => {
-        fetch('https://inventory-management-server-hv7u.onrender.com')
+        fetch('https://inventory-management-server-hv7u.onrender.com/product')
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
