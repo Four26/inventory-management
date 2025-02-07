@@ -5,7 +5,7 @@ const Categories = () => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        fetch('https://inventory-management-server-hv7u.onrender.com')
+        fetch('https://inventory-management-server-hv7u.onrender.com/category')
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
