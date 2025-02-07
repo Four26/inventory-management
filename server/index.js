@@ -8,7 +8,7 @@ const app = express();
 
 
 //middlewares
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: 'https://inventory-management-0puy.onrender.com' }));
 app.use(express.json());// req.body
 
 //routes
