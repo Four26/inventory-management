@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import '../styles/dashboard.css'
+
+const URL = import.meta.env.VITE_SERVER_URL;
+
 const Dashboard = () => {
+    console.log(URL)
     const [products, setProducts] = useState([]);
     const [productCount, setProductCount] = useState(0);
     const [categoryCount, setCategoryCount] = useState(0);
@@ -9,7 +13,7 @@ const Dashboard = () => {
 
 
     useEffect(() => {
-        fetch('https://inventory-management-server-hv7u.onrender.com/product')
+        fetch(`${URL}/product`)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)

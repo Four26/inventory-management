@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import '../styles/products.css';
-import emptyProduct from '../assets/images/no-order.png'
+import emptyProduct from '../assets/images/no-order.png';
+
+const URL = import.meta.env.VITE_SERVER_URL;
+
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -15,14 +18,14 @@ const Products = () => {
 
     useEffect(() => {
         if (query.trim() === '') {
-            fetch('https://inventory-management-server-hv7u.onrender.com/product')
+            fetch(`${URL}/product`)
                 .then((response) => response.json())
                 .then((data) => setProducts(data.products))
                 .catch((err) => console.error(`Error fetching products:`, err.message));
             return;
         }
 
-        fetch(`https://inventory-management-server-hv7u.onrender.com/product/search?query=${query}`)
+        fetch(`${URL}/product/search?query=${query}`)
             .then((response) => response.json())
             .then((data) => {
                 console.log("Searched Products:", data);
@@ -60,7 +63,7 @@ const Products = () => {
         console.log('Adding new product:', newProduct);
 
         // Send data to the backend
-        fetch('https://inventory-management-server-hv7u.onrender.com/product', {
+        fetch(`${URL}/product`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -89,7 +92,7 @@ const Products = () => {
 
         if (window.confirm(alertMessage)) {
 
-            fetch(`https://inventory-management-server-hv7u.onrender.com/product/${id}`, {
+            fetch(`${URL}/product/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
