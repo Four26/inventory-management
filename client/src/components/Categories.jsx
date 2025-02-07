@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import '../styles/categories.css'
+import '../styles/categories.css';
+
+const URL = import.meta.env.VITE_SERVER_URL;
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        fetch('https://inventory-management-server-hv7u.onrender.com/category')
+        fetch(`${URL}/category`)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
