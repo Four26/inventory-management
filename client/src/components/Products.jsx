@@ -76,7 +76,7 @@ const Products = () => {
                 // Close modal after adding the product
                 setIsModalOpen(false);
                 // Re-fetch the products list
-                fetch('http://localhost:3000/product')
+                fetch(`${URL}/product`)
                     .then((response) => response.json())
                     .then((data) => setProducts(data.products))
                     .catch((err) => console.error(`Error fetching products:`, err.message));
@@ -104,7 +104,7 @@ const Products = () => {
                     setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
 
                     // Re-fetch the products list
-                    fetch('http://localhost:3000/product')
+                    fetch(`${URL}/product`)
                         .then((response) => response.json())
                         .then((data) => setProducts(data.products))
                         .catch((err) => console.error(`Error fetching products:`, err.message));
