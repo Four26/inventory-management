@@ -3,12 +3,13 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const router = require('./router/router');
-
 const app = express();
+
+const URL = process.env.CLIENT_URL;
 
 
 //middlewares
-app.use(cors({ origin: 'https://inventory-management-0puy.onrender.com' }));
+app.use(cors({ origin: URL }));
 app.use(express.json());// req.body
 
 //routes
