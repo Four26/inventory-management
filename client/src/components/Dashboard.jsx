@@ -9,7 +9,7 @@ const Dashboard = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:3000/product')
+        fetch('https://inventory-management-server-hv7u.onrender.com')
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
