@@ -89,8 +89,8 @@ const deleteProduct = async (req, res) => {
 
         res.json(deletedProduct.rows[0]);
 
-    } catch (error) {
-        console.error(error.message);
+    } catch (err) {
+        console.error(err.message);
         res.status(500).send('Server error');
     }
 }
@@ -130,7 +130,7 @@ const getAllCategories = async (req, res) => {
 
         res.json(categoryCount);
 
-    } catch (error) {
+    } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
     }
