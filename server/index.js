@@ -7,9 +7,13 @@ const app = express();
 
 const URL = process.env.CLIENT_URL;
 
-
+console.log(URL);
 //middlewares
-app.use(cors({ origin: URL }));
+app.use(cors({
+    origin: URL,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+}));
 app.use(express.json());// req.body
 
 //routes
