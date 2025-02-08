@@ -10,13 +10,13 @@ const Categories = () => {
         const fetchCategory = async () => {
             try {
                 const response = await fetch(`${URL}/category`);
+                const data = await response.json();
 
                 if (!response.ok) {
                     const errorData = await response.json();
                     throw new Error(errorData.message || `Failed to fetch categories: ${response.statusText}`);
                 }
 
-                const data = await response.json();
                 setCategories(data.rows);
             } catch (error) {
                 console.error(`Error fetching categories: ${error.message}`);

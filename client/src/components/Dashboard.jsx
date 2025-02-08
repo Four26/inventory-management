@@ -13,19 +13,29 @@ const Dashboard = () => {
 
 
     useEffect(() => {
-        fetch(`${URL}/product`)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data)
-                setProducts(data.products)
-                setProductCount(parseInt(data.productCount))
-                setCategoryCount(parseInt(data.categoryCount))
-                setTotal(parseInt(data.totalProductsValue))
-                setStocks(Array.isArray(data.lowStock) ? data.lowStock : []);
-            })
-            .catch((err) => console.log(`Error fetching products: `, err.message));
 
-    }, [])
+        const fetchProductData = async () => {
+            try {
+                const response = await fetch(`${URL}/product`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || `Failed to fetch products: ${response.statusText}`);
+                }
+
+                setProducts(data.products);
+                setProductCount(parseInt(data.productCount));
+                setCategoryCount(parseInt(data.categoryCount));
+                setTotal(parseInt(data.totalProductsValue));
+                setStocks(Array.isArray(data.lowStock) ? data.lowStock : []);
+            } catch (error) {
+                console.error(`Error fetching products: ${error.message}`);
+            }
+        }
+        fetchProductData();
+    }, []);
+
     return (
         <div className="dashboard">
             <div className="total-products-div">
