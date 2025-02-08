@@ -20,8 +20,7 @@ const Dashboard = () => {
                 const data = await response.json();
 
                 if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || `Failed to fetch products: ${response.statusText}`);
+                    throw new Error(data.message || `Failed to fetch products: ${response.statusText}`);
                 }
 
                 setProducts(data.products);
