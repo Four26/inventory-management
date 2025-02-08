@@ -19,7 +19,7 @@ const Products = () => {
     const fetchProductData = useCallback(
         async () => {
             try {
-                const checkQuery = query.trim() === '' ? `${URL}/product` : `${URL}/product/search?query=${query}`;
+                const checkQuery = query.trim() === '' ? `${URL}/product` : `${URL}/product/search?query=${encodeURIComponent(query)}`;
                 const response = await fetch(checkQuery);
                 const data = await response.json();
 
@@ -40,7 +40,7 @@ const Products = () => {
 
         setNewProduct({
             ...newProduct,
-            [name]: value === 'name' ? value.charAt(0).toUpperCase() + value.slice(1) : value
+            [name]: name === 'name' ? value.charAt(0).toUpperCase() + value.slice(1) : value
         });
     };
 
@@ -72,17 +72,19 @@ const Products = () => {
             const alertMessage = `Are you sure you want to delete this product?`;
 
             if (window.confirm(alertMessage)) {
+
+                const productToDelete = products.find((product) => product.id === id);
+
                 const response = await fetch(`${URL}/product/${id}`, {
                     method: 'DELETE',
                     headers: { 'Content-type': 'application/json' }
                 });
                 const data = await response.json();
-
                 if (!response.ok) {
                     throw new Error(data.message || `Failed to delete product: ${response.statusText}`);
                 }
 
-                console.log(`Product deleted: ${data.message}`);
+                console.log(`Product deleted: ${productToDelete.name}`);
                 setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
                 await fetchProductData();
             }
