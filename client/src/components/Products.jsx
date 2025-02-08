@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import '../styles/products.css';
 import emptyProduct from '../assets/images/no-order.png';
 
@@ -16,102 +16,78 @@ const Products = () => {
         category: ''
     });
 
-    useEffect(() => {
-        if (query.trim() === '') {
-            fetch(`${URL}/product`)
-                .then((response) => response.json())
-                .then((data) => setProducts(data.products))
-                .catch((err) => console.error(`Error fetching products:`, err.message));
-            return;
-        }
+    const fetchProductData = useCallback(
+        async () => {
+            try {
+                const checkQuery = query.trim() === '' ? `${URL}/product` : `${URL}/product/search?query=${query}`;
+                const response = await fetch(checkQuery);
+                const data = await response.json();
 
-        fetch(`${URL}/product/search?query=${query}`)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Searched Products:", data);
-                setProducts(data);
-            })
-            .catch((err) => {
-                console.error(`Error fetching products:`, err.message);
-            });
-    }, [query]);
+                if (!response.ok) {
+                    throw new Error(data.message || `Failed to fetch products: ${response.statusText}`);
+                }
+
+                setProducts(query.trim() === '' ? data.products : data);
+            } catch (error) {
+                console.error(`Error fetching products: ${error.message}`);
+            }
+        }, [query]);
+
+    useEffect(() => { fetchProductData() }, [fetchProductData]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        if (name === 'name') {
-            setNewProduct({
-                ...newProduct,
-                [name]: value.charAt(0).toUpperCase() + value.slice(1)
+
+        setNewProduct({
+            ...newProduct,
+            [name]: value === 'name' ? value.charAt(0).toUpperCase() + value.slice(1) : value
+        });
+    };
+
+    const handleAddProduct = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch(`${URL}/product`, {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(newProduct)
             });
-        } else {
-            setNewProduct({
-                ...newProduct,
-                [name]: value
-            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || `Failed to add product: ${response.statusText}`);
+            }
+
+            console.log(`Product added: ${data.message}`);
+            setIsModalOpen(false);
+            await fetchProductData();
+        } catch (error) {
+            console.error(`Error adding product: ${error.message}`);
         }
     };
 
-    const handleAddProduct = (e) => {
-        e.preventDefault();
+    const handleDeleteProduct = async (id) => {
+        try {
+            const alertMessage = `Are you sure you want to delete this product?`;
 
-        const productData = {
-            name: newProduct.name,
-            price: newProduct.price,
-            quantity: newProduct.quantity,
-            category: newProduct.category
-        };
-        console.log('Adding new product:', newProduct);
-
-        // Send data to the backend
-        fetch(`${URL}/product`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(productData)
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Product added:', data);
-                // Close modal after adding the product
-                setIsModalOpen(false);
-                // Re-fetch the products list
-                fetch(`${URL}/product`)
-                    .then((response) => response.json())
-                    .then((data) => setProducts(data.products))
-                    .catch((err) => console.error(`Error fetching products:`, err.message));
-            })
-            .catch((err) => {
-                console.error('Error adding product:', err.message);
-            });
-    };
-
-    const handeDeleteProduct = (id) => {
-
-        const alertMessage = `Are you sure you want to delete this product?`;
-
-        if (window.confirm(alertMessage)) {
-
-            fetch(`${URL}/product/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log('Product deleted:', data);
-                    setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
-
-                    // Re-fetch the products list
-                    fetch(`${URL}/product`)
-                        .then((response) => response.json())
-                        .then((data) => setProducts(data.products))
-                        .catch((err) => console.error(`Error fetching products:`, err.message));
-                })
-                .catch((err) => {
-                    console.error('Error adding product:', err.message);
+            if (window.confirm(alertMessage)) {
+                const response = await fetch(`${URL}/product/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-type': 'application/json' }
                 });
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || `Failed to delete product: ${response.statusText}`);
+                }
+
+                console.log(`Product deleted: ${data.message}`);
+                setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+                await fetchProductData();
+            }
+        } catch (error) {
+            console.error(`Error deleting product: ${error.message}`);
         }
     }
 
@@ -214,7 +190,7 @@ const Products = () => {
                             <p>Price: PHP {product.price}</p>
                             <p>Quantity: {product.quantity}</p>
 
-                            <button className="delete-button" type="submit" onClick={() => handeDeleteProduct(product.id)}>Delete</button>
+                            <button className="delete-button" type="submit" onClick={() => handleDeleteProduct(product.id)}>Delete</button>
                         </div>
                     ))
                 ) : (
