@@ -24,6 +24,7 @@ const Categories = () => {
         }
         fetchCategory();
     }, []);
+
     return (
         <div className="categories">
             {categories.map((category) => (
