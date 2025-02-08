@@ -7,15 +7,23 @@ const Categories = () => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        fetch(`${URL}/category`)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                setCategories(data.rows)
-            })
-            .catch((err) => console.log(`Error fetching categories: `, err.message));
+        const fetchCategory = async () => {
+            try {
+                const response = await fetch(`${URL}/category`);
 
-    }, [])
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || `Failed to fetch categories: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                setCategories(data.rows);
+            } catch (error) {
+                console.error(`Error fetching categories: ${error.message}`);
+            }
+        }
+        fetchCategory();
+    }, []);
     return (
         <div className="categories">
             {categories.map((category) => (
